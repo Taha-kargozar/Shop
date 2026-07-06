@@ -33,11 +33,9 @@ public class AuthController {
 
     @PostMapping("/verify")
     public ResponseEntity<String> verify(@RequestParam String email, @RequestParam String code){
-
         return ResponseEntity.ok(
                 authService.verifyCode(email, code)
         );
-
     }
 
 }

@@ -9,7 +9,6 @@ import ir.shop.shop.exception.VerificationExpiredException;
 import ir.shop.shop.jwt.JwtService;
 import ir.shop.shop.model.Role;
 import ir.shop.shop.model.User;
-import ir.shop.shop.model.VerificationCode;
 import ir.shop.shop.repository.RoleRepo;
 import ir.shop.shop.repository.UserRepo;
 import ir.shop.shop.repository.VerificationRepo;
@@ -26,6 +25,7 @@ public class AuthServiceImpl implements AuthService {
         private final VerificationRepo verificationRepo;
         private final PasswordEncoder passwordEncoder;
         private final JwtService jwtService;
+        private final VerificationService verificationService;
 
     @Override
     public String register(RegisterRequest request) {
@@ -46,7 +46,11 @@ public class AuthServiceImpl implements AuthService {
                 .role(role)
                 .build();
 
-        userRepo.save(user);
+        User savedUser = userRepo.save(user);
+
+        String code = verificationService.createCode(savedUser);
+
+        System.out.println("Verification code: " + code);
 
         return "User registered successfully";
     }
@@ -57,11 +61,9 @@ public class AuthServiceImpl implements AuthService {
             User user = userRepo.findByEmail(email)
                     .orElseThrow(UserNotFoundException::new);
 
-            VerificationCode verification =
-                    verificationRepo.findByUser(user)
-                            .orElseThrow(VerificationExpiredException::new);
+            boolean verified = verificationService.verifyCode(user, code);
 
-            if(!verification.getCode().equals(code)){
+            if(!verified){
 
                 throw new VerificationExpiredException();
 
@@ -71,11 +73,10 @@ public class AuthServiceImpl implements AuthService {
 
             userRepo.save(user);
 
-            verificationRepo.delete(verification);
-
             return "Email verified successfully";
 
         }
+
 
         @Override
         public String login(LoginRequest request) {
