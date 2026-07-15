@@ -54,4 +54,5 @@ public class AuthService {
         }
         return jwtService.tokenGenerate(user);
     }
+
 }
