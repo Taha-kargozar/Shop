@@ -1,25 +1,18 @@
 package ir.shop.shop.service;
 
-import ir.shop.shop.dto.requests.LoginRequest;
-import ir.shop.shop.dto.requests.RegisterRequest;
+import ir.shop.shop.dto.requests.UserUpdateRequest;
 import ir.shop.shop.dto.response.UserResponse;
 
 import java.util.List;
 
 public interface UserService {
 
-    UserResponse register(RegisterRequest request);
+        UserResponse getUserById(Long id);
 
-    String verifyCode(String email , String code);
+        List<UserResponse> getAllUsers();
 
-    String login(LoginRequest request);
+        UserResponse updateUser(Long id, UserUpdateRequest request);
 
-    UserResponse getUserById(Long id);
-
-    List<UserResponse> getAllUsers();
-
-    UserResponse updateUser(Long id , RegisterRequest request);
-
-    void deleteUser(Long id);
+        void deleteUser(Long id);
 
 }
