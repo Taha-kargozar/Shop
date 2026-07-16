@@ -21,9 +21,10 @@ public class VerificationCode {
 
     private LocalDateTime expireTime;
 
-    private boolean used = false;
+    private boolean Used = false;
 
     @OneToOne
-    @JoinColumn(name = "user_code")
+    @JoinColumn(name = "User_Code")
     private User user;
+
 }
