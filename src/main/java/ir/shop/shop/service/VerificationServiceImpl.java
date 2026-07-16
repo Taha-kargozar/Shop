@@ -23,18 +23,20 @@ public class VerificationServiceImpl implements VerificationService {
                 new Random().nextInt(900000) + 100000
         );
 
-        VerificationCode verificationCode =
-                VerificationCode.builder()
-                        .code(code)
-                        .expireTime(LocalDateTime.now().plusMinutes(5))
-                        .Used(false)
-                        .user(user)
-                        .build();
+        VerificationCode verificationCode = verificationRepo
+                .findByUser(user)
+                .orElse(new VerificationCode());
+
+        verificationCode.setUser(user);
+        verificationCode.setCode(code);
+        verificationCode.setExpireTime(
+                LocalDateTime.now().plusMinutes(5)
+        );
+        verificationCode.setUsed(false);
 
         verificationRepo.save(verificationCode);
 
         return code;
-
     }
 
     @Override

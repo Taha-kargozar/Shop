@@ -16,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -30,8 +32,23 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String register(RegisterRequest request) {
 
-        if(userRepo.findByEmail(request.getEmail()).isPresent()){
-            throw new EmailExistException();
+        Optional<User> existingUser = userRepo.findByEmail(request.getEmail());
+
+        if (existingUser.isPresent()) {
+
+            User user = existingUser.get();
+
+            // اگر قبلاً تایید شده
+            if (user.isEnabled()) {
+                throw new EmailExistException();
+            }
+
+            // اگر تایید نشده، کد جدید بساز
+            String code = verificationService.createCode(user);
+
+            System.out.println("New verification code: " + code);
+
+            return "New verification code sent";
         }
 
         Role role = roleRepo.findByName("ROLE_USER")

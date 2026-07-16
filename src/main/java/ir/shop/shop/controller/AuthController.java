@@ -2,6 +2,7 @@ package ir.shop.shop.controller;
 
 import ir.shop.shop.dto.requests.LoginRequest;
 import ir.shop.shop.dto.requests.RegisterRequest;
+import ir.shop.shop.dto.requests.VerifyRequest;
 import ir.shop.shop.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,10 +33,8 @@ public class AuthController {
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<String> verify(@RequestParam String email, @RequestParam String code){
-        return ResponseEntity.ok(
-                authService.verifyCode(email, code)
-        );
+    public ResponseEntity<String> verify(@RequestBody VerifyRequest request){
+        return ResponseEntity.ok(authService.verifyCode(request.getEmail(), request.getCode()));
     }
 
 }
