@@ -75,4 +75,15 @@ public class UserServiceImpl implements UserService{
 
         }
 
+    @Override
+    public UserResponse getCurrentUser(String email) {
+
+
+        User user = userRepo.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+
+
+        return mapToResponse(user);
+
+    }
 }
