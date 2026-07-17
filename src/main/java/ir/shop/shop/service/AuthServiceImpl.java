@@ -28,6 +28,7 @@ public class AuthServiceImpl implements AuthService {
         private final PasswordEncoder passwordEncoder;
         private final JwtService jwtService;
         private final VerificationService verificationService;
+        private final EmailService emailService;
 
     @Override
     public String register(RegisterRequest request) {
@@ -38,15 +39,15 @@ public class AuthServiceImpl implements AuthService {
 
             User user = existingUser.get();
 
-            // اگر قبلاً تایید شده
             if (user.isEnabled()) {
                 throw new EmailExistException();
             }
 
-            // اگر تایید نشده، کد جدید بساز
             String code = verificationService.createCode(user);
 
-            System.out.println("New verification code: " + code);
+            //System.out.println("New verification code: " + code);
+
+            emailService.sendVerificationEmail(user.getEmail(),code);
 
             return "New verification code sent";
         }
@@ -67,7 +68,9 @@ public class AuthServiceImpl implements AuthService {
 
         String code = verificationService.createCode(savedUser);
 
-        System.out.println("Verification code: " + code);
+       // System.out.println("Verification code: " + code);
+
+        emailService.sendVerificationEmail(user.getEmail(),code);
 
         return "User registered successfully";
     }
