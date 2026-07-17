@@ -7,6 +7,7 @@ import ir.shop.shop.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,6 +36,12 @@ public class AuthController {
     @PostMapping("/verify")
     public ResponseEntity<String> verify(@RequestBody VerifyRequest request){
         return ResponseEntity.ok(authService.verifyCode(request.getEmail(), request.getCode()));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin-test")
+    public String adminTest(){
+        return "Admin OK";
     }
 
 }

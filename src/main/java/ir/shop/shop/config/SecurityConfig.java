@@ -7,6 +7,8 @@ package ir.shop.shop.config;
  import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+ import org.springframework.http.HttpMethod;
+ import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
  import org.springframework.security.config.annotation.web.builders.HttpSecurity;
  import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
  import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
@@ -34,14 +37,32 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
+
                         .requestMatchers(
                                 "/api/auth/**"
-                        ).permitAll()
+                        )
+                        .permitAll()
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/products/**",
+                                "/api/categories/**"
+                        )
+                        .permitAll()
+
                         .requestMatchers(
                                 "/api/products/**",
                                 "/api/categories/**"
-                        ).permitAll()
-                        .anyRequest().authenticated()
+                        )
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(
+                                "/api/users/**"
+                        )
+                        .hasRole("ADMIN")
+
+                        .anyRequest()
+                        .authenticated()
                 )
 
                 .userDetailsService(userDetailsService)

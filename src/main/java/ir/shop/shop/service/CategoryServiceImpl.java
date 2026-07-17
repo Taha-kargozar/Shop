@@ -2,9 +2,11 @@ package ir.shop.shop.service;
 
 import ir.shop.shop.dto.requests.CategoryRequest;
 import ir.shop.shop.dto.response.CategoryResponse;
+import ir.shop.shop.exception.CategoryHasProductsException;
 import ir.shop.shop.exception.CategoryNotFoundException;
 import ir.shop.shop.model.Category;
 import ir.shop.shop.repository.CategoryRepo;
+import ir.shop.shop.repository.ProductRepo;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepo categoryRepo;
+    private final ProductRepo productRepo;
 
     @Override
     public CategoryResponse addCategory(CategoryRequest request) {
@@ -53,6 +56,9 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepo.findById(id)
                 .orElseThrow(CategoryNotFoundException::new);
 
+        if(productRepo.existsByCategory(category)){
+            throw new CategoryHasProductsException();
+        }
         categoryRepo.delete(category);
 
     }

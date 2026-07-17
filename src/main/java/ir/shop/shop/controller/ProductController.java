@@ -6,6 +6,7 @@ import ir.shop.shop.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ProductResponse> createProduct(
             @Valid @RequestBody ProductRequest request
@@ -26,7 +27,7 @@ public class ProductController {
                 productService.createProduct(request)
         );
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequest request) {
 
@@ -35,7 +36,7 @@ public class ProductController {
         );
 
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
 
@@ -52,14 +53,15 @@ public class ProductController {
         );
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<List<ProductResponse>> searchProduct(@RequestParam String name) {
 
         return ResponseEntity.ok(
                 productService.searchNameProduct(name)
         );
-    }
 
+    }
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
 
