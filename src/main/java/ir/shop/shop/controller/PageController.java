@@ -253,51 +253,6 @@ public class PageController {
         return "redirect:/admin/products";
     }
 
-  /*  @GetMapping("/admin/categories")
-    public String adminCategories(
-            @RequestParam(required = false) Long editId,
-            Model model) {
-
-        model.addAttribute(
-                "categories",
-                categoryService.getAllCategories()
-        );
-
-        if (editId != null) {
-
-            CategoryResponse category =
-                    categoryService.getCategoryById(editId);
-
-            CategoryRequest request =
-                    CategoryRequest.builder()
-                            .name(category.getName())
-                            .build();
-
-            model.addAttribute(
-                    "categoryRequest",
-                    request
-            );
-
-            model.addAttribute(
-                    "editId",
-                    editId
-            );
-
-        } else {
-
-            model.addAttribute(
-                    "categoryRequest",
-                    new CategoryRequest()
-            );
-
-        }
-
-
-        return "admin/categories";
-    }
-
-
-   */
   @GetMapping("/admin/categories")
   public String adminCategories(
           @RequestParam(required = false) Long editId,

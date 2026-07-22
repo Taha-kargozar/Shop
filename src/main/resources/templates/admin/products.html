@@ -71,76 +71,7 @@
       ? 'افزودن محصول'
       : 'ویرایش محصول'">
         </h2>
-<!--
-        <form
-                th:action="@{/admin/products/save}"
-                method="post">
 
-            <input
-                    type="hidden"
-                    name="id"
-                    th:value="${productRequest.id}">
-
-            <input
-                    type="text"
-                    name="name"
-                    placeholder="نام محصول"
-                    th:value="${productRequest.name}">
-
-            <input
-                    type="number"
-                    step="0.01"
-                    name="price"
-                    placeholder="قیمت"
-                    th:value="${productRequest.price}">
-
-            <input
-                    type="number"
-                    name="quantity"
-                    placeholder="تعداد"
-                    th:value="${productRequest.quantity}">
-
-            <select name="categoryId">
-
-                <option value="">
-                    انتخاب دسته بندی
-                </option>
-
-
-                <option
-                        th:each="category : ${categories}"
-                        th:value="${category.id}"
-                        th:text="${category.name}"
-                        th:selected="${category.id == productRequest.categoryId}">
-                </option>
-
-
-            </select>
-
-            <input
-                    type="text"
-                    name="imageUrl"
-                    placeholder="آدرس عکس"
-                    th:value="${productRequest.imageUrl}">
-
-            <textarea
-                    name="description"
-                    placeholder="توضیحات"
-                    th:text="${productRequest.description}">
-        </textarea>
-
-            <button type="submit">
-
-            <span
-                    th:text="${productRequest.id == null}
-                    ? 'افزودن محصول'
-                    : 'ذخیره تغییرات'">
-            </span>
-
-            </button>
-
-        </form>
--->
         <form
                 id="productForm"
                 th:object="${productRequest}"
