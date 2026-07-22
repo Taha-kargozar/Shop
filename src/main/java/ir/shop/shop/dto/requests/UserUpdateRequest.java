@@ -14,4 +14,6 @@ public class UserUpdateRequest {
 
     private String lastname;
 
+    private Long roleId;
+
 }

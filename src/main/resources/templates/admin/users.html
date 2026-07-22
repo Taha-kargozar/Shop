@@ -91,6 +91,16 @@
                     th:field="*{lastname}"
                     placeholder="نام خانوادگی">
 
+            <select name="roleId">
+
+                <option
+                        th:each="role : ${roles}"
+                        th:value="${role.id}"
+                        th:text="${role.name}"
+                        th:selected="${role.id == userUpdateRequest.roleId}">
+                </option>
+
+            </select>
 
             <div class="form-actions">
 

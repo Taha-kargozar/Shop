@@ -2,8 +2,11 @@ package ir.shop.shop.service;
 
 import ir.shop.shop.dto.requests.UserUpdateRequest;
 import ir.shop.shop.dto.response.UserResponse;
+import ir.shop.shop.exception.RoleNotFoundException;
 import ir.shop.shop.exception.UserNotFoundException;
+import ir.shop.shop.model.Role;
 import ir.shop.shop.model.User;
+import ir.shop.shop.repository.RoleRepo;
 import ir.shop.shop.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService{
 
     private final UserRepo userRepo;
+    private final RoleRepo roleRepo;
 
     @Override
     public UserResponse getUserById(Long id) {
@@ -44,11 +48,13 @@ public class UserServiceImpl implements UserService{
             user.setFirstname(request.getFirstname());
             user.setLastname(request.getLastname());
 
-
+            if (request.getRoleId() != null) {
+                Role role = roleRepo.findById(request.getRoleId()).
+                        orElseThrow(RoleNotFoundException::new);
+                user.setRole(role);
+            }
 
             User updatedUser = userRepo.save(user);
-
-
 
             return mapToResponse(updatedUser);
 
@@ -71,6 +77,8 @@ public class UserServiceImpl implements UserService{
                     .firstname(user.getFirstname())
                     .lastname(user.getLastname())
                     .email(user.getEmail())
+                    .roleId(user.getRole().getId())
+                    .roleName(user.getRole().getName())
                     .build();
 
         }

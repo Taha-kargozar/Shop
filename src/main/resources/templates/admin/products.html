@@ -71,7 +71,7 @@
       ? 'افزودن محصول'
       : 'ویرایش محصول'">
         </h2>
-
+<!--
         <form
                 th:action="@{/admin/products/save}"
                 method="post">
@@ -140,7 +140,77 @@
             </button>
 
         </form>
+-->
+        <form
+                id="productForm"
+                th:object="${productRequest}"
+                th:action="@{/admin/products/save}"
+                method="post">
 
+            <input type="hidden" th:field="*{id}">
+
+            <input
+                    type="text"
+                    id="name"
+                    th:field="*{name}"
+                    placeholder="نام محصول">
+
+            <span id="nameError" class="error"></span>
+
+
+            <input
+                    type="number"
+                    id="price"
+                    step="0.01"
+                    th:field="*{price}"
+                    placeholder="قیمت">
+
+            <span id="priceError" class="error"></span>
+
+
+            <input
+                    type="number"
+                    id="quantity"
+                    th:field="*{quantity}"
+                    placeholder="تعداد">
+
+            <span id="quantityError" class="error"></span>
+
+
+            <select
+                    id="categoryId"
+                    th:field="*{categoryId}">
+
+                <option value="">
+                    انتخاب دسته بندی
+                </option>
+
+                <option
+                        th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.name}">
+                </option>
+
+            </select>
+
+            <span id="categoryError" class="error"></span>
+
+
+            <input
+                    type="text"
+                    th:field="*{imageUrl}"
+                    placeholder="آدرس عکس">
+
+            <textarea
+                    th:field="*{description}"
+                    placeholder="توضیحات">
+    </textarea>
+
+            <button type="submit">
+                ذخیره
+            </button>
+
+        </form>
     </div>
 
     <table>
@@ -238,7 +308,95 @@
     </table>
 
 </main>
+<script>
 
+    document.getElementById("productForm")
+        .addEventListener("submit", function (event) {
+
+            let valid = true;
+
+            // پاک کردن خطاهای قبلی
+            document.querySelectorAll(".error")
+                .forEach(error => error.innerText = "");
+
+
+            const name =
+                document.getElementById("name").value.trim();
+
+            const price =
+                document.getElementById("price").value;
+
+            const quantity =
+                document.getElementById("quantity").value;
+
+            const categoryId =
+                document.getElementById("categoryId").value;
+
+
+            // نام
+            if (!name) {
+
+                document.getElementById("nameError")
+                    .innerText = "نام محصول الزامی است.";
+
+                valid = false;
+            }
+
+
+            // قیمت
+            if (!price) {
+
+                document.getElementById("priceError")
+                    .innerText = "قیمت محصول الزامی است.";
+
+                valid = false;
+
+            } else if (Number(price) < 0) {
+
+                document.getElementById("priceError")
+                    .innerText = "قیمت نمی‌تواند منفی باشد.";
+
+                valid = false;
+            }
+
+
+            // تعداد
+            if (!quantity) {
+
+                document.getElementById("quantityError")
+                    .innerText = "تعداد محصول الزامی است.";
+
+                valid = false;
+
+            } else if (Number(quantity) < 0) {
+
+                document.getElementById("quantityError")
+                    .innerText = "موجودی نمی‌تواند منفی باشد.";
+
+                valid = false;
+            }
+
+
+            // دسته بندی
+            if (!categoryId) {
+
+                document.getElementById("categoryError")
+                    .innerText = "لطفاً یک دسته بندی انتخاب کنید.";
+
+                valid = false;
+            }
+
+
+            // اگر Validation شکست خورد
+            if (!valid) {
+
+                event.preventDefault();
+
+            }
+
+        });
+
+</script>
 
 </body>
 

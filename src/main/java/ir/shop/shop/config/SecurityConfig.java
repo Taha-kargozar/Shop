@@ -45,7 +45,9 @@ public class SecurityConfig {
                                 "/login/**",
                                 "/cart/**",
                                 "/products/**",
-                                "/api/auth/**"
+                                "/api/auth/**",
+                                "/static/**",
+                                "/images/**"
                         )
                         .permitAll()
 
@@ -58,7 +60,8 @@ public class SecurityConfig {
 
                         .requestMatchers(
                                 "/api/products/**",
-                                "/api/categories/**"
+                                "/api/categories/**",
+                                "/admin/**"
                         )
                         .hasRole("ADMIN")
 

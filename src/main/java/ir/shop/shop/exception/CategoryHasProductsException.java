@@ -3,7 +3,7 @@ package ir.shop.shop.exception;
 public class CategoryHasProductsException extends RuntimeException {
 
     public CategoryHasProductsException() {
-        super("Category Has Product");
+        super("دسته بندی دارای محصول است");
     }
 
     public CategoryHasProductsException(String massage) {

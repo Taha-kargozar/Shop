@@ -178,3 +178,12 @@ td {
     display: inline;
 
 }
+.error-message {
+    background: #ffe5e5;
+    color: #c0392b;
+    border: 1px solid #e74c3c;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    text-align: center;
+}

@@ -5,6 +5,9 @@ import ir.shop.shop.dto.response.CategoryResponse;
 import ir.shop.shop.dto.response.ProductResponse;
 import ir.shop.shop.dto.response.UserResponse;
 import ir.shop.shop.exception.CategoryHasProductsException;
+import ir.shop.shop.exception.CategoryNotFoundException;
+import ir.shop.shop.jwt.JwtService;
+import ir.shop.shop.repository.RoleRepo;
 import ir.shop.shop.service.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,6 +26,8 @@ public class PageController {
     private final CartService cartService;
     private final CategoryService categoryService;
     private final UserService userService;
+    private final RoleRepo roleRepo;
+    private final JwtService jwtService;
 
     @GetMapping("/")
     public String home() {
@@ -58,11 +63,17 @@ public class PageController {
 
         cookie.setHttpOnly(true);
         cookie.setPath("/");
-        cookie.setMaxAge(60 * 60 * 24); // یک روز
+        cookie.setMaxAge(60 * 60 * 24);
 
         // cookie.setSecure(true);
 
         response.addCookie(cookie);
+
+        String role = jwtService.extractRole(token);
+
+        if ("ROLE_ADMIN".equals(role)) {
+            return "redirect:/admin";
+        }
 
         return "redirect:/products";
     }
@@ -242,7 +253,7 @@ public class PageController {
         return "redirect:/admin/products";
     }
 
-    @GetMapping("/admin/categories")
+  /*  @GetMapping("/admin/categories")
     public String adminCategories(
             @RequestParam(required = false) Long editId,
             Model model) {
@@ -285,6 +296,69 @@ public class PageController {
         return "admin/categories";
     }
 
+
+   */
+  @GetMapping("/admin/categories")
+  public String adminCategories(
+          @RequestParam(required = false) Long editId,
+          Model model) {
+
+      model.addAttribute(
+              "categories",
+              categoryService.getAllCategories()
+      );
+
+      if (editId != null) {
+
+          try {
+
+              CategoryResponse category =
+                      categoryService.getCategoryById(editId);
+
+              CategoryRequest request =
+                      CategoryRequest.builder()
+                              .name(category.getName())
+                              .build();
+
+              model.addAttribute(
+                      "categoryRequest",
+                      request
+              );
+
+              model.addAttribute(
+                      "editId",
+                      editId
+              );
+
+          } catch (CategoryNotFoundException e) {
+
+              model.addAttribute(
+                      "errorMessage",
+                      e.getMessage()
+              );
+
+              model.addAttribute(
+                      "categoryRequest",
+                      new CategoryRequest()
+              );
+
+              model.addAttribute(
+                      "editId",
+                      null
+              );
+          }
+
+      } else {
+
+          model.addAttribute(
+                  "categoryRequest",
+                  new CategoryRequest()
+          );
+
+      }
+
+      return "admin/categories";
+  }
     @PostMapping("/admin/categories/save")
     public String saveCategory(
             @RequestParam(required = false) Long id,
@@ -295,12 +369,10 @@ public class PageController {
 
             if (id == null) {
 
-                // افزودن Category جدید
                 categoryService.addCategory(request);
 
             } else {
 
-                // ویرایش Category موجود
                 categoryService.updateCategory(id, request);
 
             }
@@ -309,7 +381,6 @@ public class PageController {
 
         } catch (CategoryHasProductsException e) {
 
-            // خطای حذف Category دارای محصول
             model.addAttribute(
                     "errorMessage",
                     e.getMessage()
@@ -366,13 +437,16 @@ public class PageController {
     }
 
     @GetMapping("/admin/users")
-    public String adminUsers(
-            @RequestParam(required = false) Long editId,
-            Model model) {
+    public String adminUsers(@RequestParam(required = false) Long editId, Model model) {
 
         model.addAttribute(
                 "users",
                 userService.getAllUsers()
+        );
+
+        model.addAttribute(
+        "roles",
+                roleRepo.findAll()
         );
 
         if (editId != null) {
@@ -384,6 +458,7 @@ public class PageController {
                     UserUpdateRequest.builder()
                             .firstname(user.getFirstname())
                             .lastname(user.getLastname())
+                            .roleId(user.getRoleId())
                             .build();
 
             model.addAttribute(

@@ -17,4 +17,8 @@ public class UserResponse {
 
     private String email;
 
+    private Long roleId;
+
+    private String roleName;
+
 }
