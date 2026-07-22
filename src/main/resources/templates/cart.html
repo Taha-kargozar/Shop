@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fa"
+      xmlns:th="http://www.thymeleaf.org"
+      dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>سبد خرید</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/cart.css}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <h1>فروشگاه</h1>
+
+    <nav>
+
+        <a th:href="@{/}">صفحه اصلی</a>
+        <a th:href="@{/products}">محصولات</a>
+        <a th:href="@{/cart}">سبد خرید</a>
+        <a th:href="@{/profile}">پروفایل</a>
+
+    </nav>
+
+</header>
+
+<main class="container">
+
+    <h2>سبد خرید</h2>
+
+    <table class="cart-table">
+
+        <thead>
+
+        <tr>
+
+            <th>محصول</th>
+            <th>قیمت</th>
+            <th>تعداد</th>
+            <th>جمع</th>
+            <th>عملیات</th>
+
+        </tr>
+
+        </thead>
+<!--
+        <tbody>
+
+        <tr th:each="item : ${cart.items}">
+
+            <td th:text="${item.productName}"></td>
+
+            <td th:text="${item.price}"></td>
+
+            <td th:text="${item.quantity}"></td>
+
+            <td th:text="${item.subtotal}"></td>
+
+        <tr th:each="item : ${cart.items}">
+
+            <td th:text="${item.productName}"></td>
+
+            <td th:text="${item.price}"></td>
+
+            <td th:text="${item.quantity}"></td>
+
+            <td th:text="${item.subtotal}"></td>
+
+            <td>
+
+                <form th:action="@{/cart/remove}" method="post">
+
+                    <input
+                            type="hidden"
+                            name="cartItemId"
+                            th:value="${item.id}">
+
+                    <button
+                            type="submit"
+                            class="delete-btn">
+
+                        حذف
+
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+        </tr>
+
+        </tbody>
+-->
+        <tbody>
+
+        <tr th:each="item : ${cart.items}">
+
+            <td th:text="${item.productName}"></td>
+
+            <td th:text="${item.price}"></td>
+
+            <td th:text="${item.quantity}"></td>
+
+            <td th:text="${item.subtotal}"></td>
+
+            <td>
+
+                <form th:action="@{/cart/remove}" method="post">
+
+                    <input
+                            type="hidden"
+                            name="cartItemId"
+                            th:value="${item.id}">
+
+                    <button
+                            type="submit"
+                            class="delete-btn">
+
+                        حذف
+
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+    </table>
+
+    <div class="summary">
+
+        <div class="actions">
+
+            <form th:action="@{/cart/clear}" method="post">
+
+                <button
+                        type="submit"
+                        class="clear-btn">
+
+                    حذف همه محصولات
+
+                </button>
+
+            </form>
+
+            <span th:text="${cart.totalPrice}"></span>
+
+        <button class="checkout">
+
+            ثبت سفارش
+
+        </button>
+
+    </div>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

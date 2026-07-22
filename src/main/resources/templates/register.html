@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fa"
+      xmlns:th="http://www.thymeleaf.org"
+      dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ثبت نام</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/auth.css}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <h1>فروشگاه</h1>
+
+    <nav>
+
+        <a th:href="@{/}">صفحه اصلی</a>
+        <a th:href="@{/products}">محصولات</a>
+        <a th:href="@{/cart}">سبد خرید</a>
+        <a th:href="@{/login}">ورود</a>
+        <a th:href="@{/register}">ثبت نام</a>
+
+    </nav>
+
+</header>
+
+<main>
+
+    <div class="auth-card">
+
+        <h2>ساخت حساب</h2>
+
+        <form th:action="@{/register}"
+              th:object="${registerRequest}"
+              method="post">
+            <input type="text" th:field="*{firstname}" placeholder="نام">
+
+            <input type="text" th:field="*{lastname}" placeholder="نام خانوادگی">
+
+            <input type="email" th:field="*{email}" placeholder="ایمیل">
+
+            <input type="password" th:field="*{password}" placeholder="رمز عبور">
+
+            <button type="submit">
+
+                ثبت نام
+
+            </button>
+
+        </form>
+        <p>
+
+            قبلاً ثبت نام کرده‌اید؟
+
+            <a th:href="@{/login}">
+                ورود
+            </a>
+
+        </p>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

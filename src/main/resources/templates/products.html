@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>محصولات</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/products.css}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <h1>فروشگاه</h1>
+
+    <nav>
+
+        <a th:href="@{/}">صفحه اصلی</a>
+
+        <a th:href="@{/products}">محصولات</a>
+
+        <a th:href="@{/cart}">سبد خرید</a>
+
+        <a th:href="@{/login}">ورود</a>
+
+        <a th:href="@{/register}">ثبت نام</a>
+
+    </nav>
+
+</header>
+
+<main>
+
+    <h2 class="title">
+
+        تمامی محصولات
+
+    </h2>
+
+    <div class="products-container">
+
+        <div class="product-card"
+             th:each="product : ${products}">
+
+            <img th:src="${product.imageUrl}"
+                 th:alt="${product.name}"
+                 class="product-image">
+
+            <h2 th:text="${product.name}">
+                اسم محصول
+            </h2>
+
+            <p>
+
+                <strong>دسته :</strong>
+
+                <span
+                        th:text="${product.categoryName}">
+                </span>
+
+            </p>
+
+            <p>
+
+                <strong>قیمت :</strong>
+
+                <span
+                        th:text="${product.price}">
+                </span>
+
+            </p>
+
+            <p>
+
+                <strong>تعداد موجود :</strong>
+
+                <span
+                        th:text="${product.quantity}">
+                </span>
+
+            </p>
+
+            <p class="description"
+               th:text="${product.description}">
+
+            </p>
+
+            <div class="buttons">
+
+                    <form th:action="@{/cart/add}" method="post">
+
+                        <input
+                                type="hidden"
+                                name="productId"
+                                th:value="${product.id}">
+
+                        <input
+                                type="hidden"
+                                name="quantity"
+                                value="1">
+                        <input
+                                type="number"
+                                name="quantity"
+                                value="1"
+                                min="1"
+                                class="qty-input">
+                        <button
+                                type="submit"
+                                class="btn">
+
+                            اضافه کردن به سبد خرید
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

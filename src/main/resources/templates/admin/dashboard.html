@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fa"
+      xmlns:th="http://www.thymeleaf.org"
+      dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>پنل مدیریت</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/dashboard.css}">
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <h1>
+        پنل مدیریت
+    </h1>
+
+    <nav>
+
+        <a th:href="@{/admin}">
+            داشبورد
+        </a>
+
+        <a th:href="@{/admin/products}">
+            محصولات
+        </a>
+
+        <a th:href="@{/admin/categories}">
+            دسته بندی ها
+        </a>
+
+        <a th:href="@{/admin/users}">
+            کاربران
+        </a>
+
+        <a th:href="@{/}">
+            خروج
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+
+    <h2>
+        خوش آمدید مدیر
+    </h2>
+
+
+    <div class="cards">
+
+
+        <div class="card">
+
+            <h3>
+                محصولات
+            </h3>
+
+            <p>
+                مدیریت محصولات فروشگاه
+            </p>
+
+            <a th:href="@{/admin/products}">
+                ورود
+            </a>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h3>
+                دسته بندی ها
+            </h3>
+
+            <p>
+                مدیریت دسته بندی محصولات
+            </p>
+
+            <a th:href="@{/admin/categories}">
+                ورود
+            </a>
+
+        </div>
+
+
+
+
+        <div class="card">
+
+            <h3>
+                کاربران
+            </h3>
+
+            <p>
+                مدیریت کاربران سیستم
+            </p>
+
+            <a th:href="@{/admin/users}">
+                ورود
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

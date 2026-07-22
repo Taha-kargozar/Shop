@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fa"
+      xmlns:th="http://www.thymeleaf.org"
+      dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>مدیریت دسته‌بندی‌ها</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/ad_categories.css}">
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <h1>
+        پنل مدیریت
+    </h1>
+
+
+    <nav>
+
+        <a th:href="@{/admin}">
+            داشبورد
+        </a>
+
+        <a th:href="@{/admin/products}">
+            محصولات
+        </a>
+
+        <a th:href="@{/admin/categories}">
+            دسته‌بندی‌ها
+        </a>
+
+        <a th:href="@{/admin/users}">
+            کاربران
+        </a>
+
+        <a th:href="@{/}">
+            خروج
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+
+    <div class="header">
+
+        <h2>
+            مدیریت دسته‌بندی‌ها
+        </h2>
+
+    </div>
+
+    <div class="admin-form">
+
+        <h2
+                th:text="${editId == null}
+                ? 'افزودن دسته‌بندی'
+                : 'ویرایش دسته‌بندی'">
+        </h2>
+
+
+        <form
+                th:action="@{/admin/categories/save}"
+                method="post">
+
+            <input
+                    type="hidden"
+                    name="id"
+                    th:value="${editId}">
+
+
+            <input
+                    type="text"
+                    name="name"
+                    th:value="${categoryRequest.name}"
+                    placeholder="نام دسته‌بندی"
+                    required>
+
+
+            <button type="submit">
+
+                <span
+                        th:text="${editId == null}
+                        ? 'افزودن دسته‌بندی'
+                        : 'ذخیره تغییرات'">
+                </span>
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+    <table>
+
+
+        <thead>
+
+        <tr>
+
+            <th>
+                شناسه
+            </th>
+
+            <th>
+                نام دسته‌بندی
+            </th>
+
+            <th>
+                عملیات
+            </th>
+
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+
+        <tr th:each="category : ${categories}">
+
+
+            <td
+                    th:text="${category.id}">
+                1
+            </td>
+
+            <td
+                    th:text="${category.name}">
+                نام دسته‌بندی
+            </td>
+
+
+            <td class="actions">
+
+                <a
+                        class="edit-btn"
+                        th:href="@{/admin/categories(editId=${category.id})}">
+
+                    ویرایش
+
+                </a>
+
+                <form
+                        th:action="@{/admin/categories/delete/{id}(id=${category.id})}"
+                        method="post"
+                        onsubmit="return confirm('آیا مطمئن هستید که می‌خواهید این دسته‌بندی را حذف کنید؟')">
+
+
+                    <button
+                            type="submit"
+                            class="delete-btn">
+
+                        حذف
+
+                    </button>
+
+
+                </form>
+
+
+            </td>
+
+
+        </tr>
+
+
+        </tbody>
+
+
+    </table>
+
+
+</main>
+
+
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fa"
+      xmlns:th="http://www.thymeleaf.org"
+      dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>مدیریت کاربران</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/ad_users.css}">
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <h1>
+        پنل مدیریت
+    </h1>
+
+
+    <nav>
+
+        <a th:href="@{/admin}">
+            داشبورد
+        </a>
+
+        <a th:href="@{/admin/products}">
+            محصولات
+        </a>
+
+        <a th:href="@{/admin/categories}">
+            دسته‌بندی‌ها
+        </a>
+
+        <a th:href="@{/admin/users}">
+            کاربران
+        </a>
+
+        <a th:href="@{/}">
+            خروج
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+
+    <div class="header">
+
+        <h2>
+            مدیریت کاربران
+        </h2>
+
+    </div>
+
+    <div class="admin-form"
+         th:if="${editUserId != null}">
+
+        <h2>
+            ویرایش کاربر
+        </h2>
+
+
+        <form
+                th:action="@{/admin/users/update/{id}(id=${editUserId})}"
+                th:object="${userUpdateRequest}"
+                method="post">
+
+
+            <input
+                    type="text"
+                    th:field="*{firstname}"
+                    placeholder="نام">
+
+
+            <input
+                    type="text"
+                    th:field="*{lastname}"
+                    placeholder="نام خانوادگی">
+
+
+            <div class="form-actions">
+
+                <button
+                        type="submit"
+                        class="save-btn">
+
+                    ذخیره تغییرات
+
+                </button>
+
+
+                <a
+                        th:href="@{/admin/users}"
+                        class="cancel-btn">
+
+                    انصراف
+
+                </a>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+    <table>
+
+
+        <thead>
+
+        <tr>
+
+            <th>
+                شناسه
+            </th>
+
+
+            <th>
+                نام
+            </th>
+
+
+            <th>
+                نام خانوادگی
+            </th>
+
+
+            <th>
+                ایمیل
+            </th>
+
+
+            <th>
+                عملیات
+            </th>
+
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+
+        <tr th:each="user : ${users}">
+
+
+            <td th:text="${user.id}">
+                1
+            </td>
+
+
+            <td th:text="${user.firstname}">
+                نام
+            </td>
+
+
+            <td th:text="${user.lastname}">
+                نام خانوادگی
+            </td>
+
+
+            <td th:text="${user.email}">
+                email
+            </td>
+
+
+            <td class="actions">
+
+
+                <a
+                        class="edit-btn"
+                        th:href="@{/admin/users(editId=${user.id})}">
+
+                    ویرایش
+
+                </a>
+
+
+                <form
+                        th:action="@{/admin/users/delete/{id}(id=${user.id})}"
+                        method="post"
+                        onsubmit="return confirm('آیا مطمئن هستید که می‌خواهید این کاربر را حذف کنید؟')">
+
+
+                    <button
+                            type="submit"
+                            class="delete-btn">
+
+                        حذف
+
+                    </button>
+
+
+                </form>
+
+
+            </td>
+
+
+        </tr>
+
+
+        </tbody>
+
+
+    </table>
+
+
+</main>
+
+
+</body>
+
+</html>

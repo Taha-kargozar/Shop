@@ -23,7 +23,7 @@ public class VerificationCode {
 
     private boolean used = false;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_code")
     private User user;
 

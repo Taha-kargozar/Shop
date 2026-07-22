@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>فروشگاه انلاین</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/index.css}">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        فروشگاه
+    </div>
+
+    <nav>
+
+        <a th:href="@{/}">
+            خانه
+        </a>
+
+        <a th:href="@{/products}">
+           محصولات
+        </a>
+
+        <a th:href="@{/login}">
+            ورود
+        </a>
+
+        <a th:href="@{/register}">
+            ثبت نام
+        </a>
+
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="hero-text">
+
+        <h1>
+            به فروشگاه انلاین ما خوش امدید
+        </h1>
+
+        <div class="hero-buttons">
+
+            <a class="primary-btn"
+               th:href="@{/products}">
+
+                محصولات
+
+            </a>
+
+            <a class="secondary-btn"
+               th:href="@{/register}">
+
+                ثبت نام
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="hero-image">
+        <img th:src="@{/images/imgindex.jpg}" alt="Shopping">
+    </div>
+
+</section>
+
+<footer>
+
+    <p>
+
+        © 2026 فروشگاه انلاین Taha Kargozar
+
+    </p>
+
+</footer>
+
+</body>
+
+</html>

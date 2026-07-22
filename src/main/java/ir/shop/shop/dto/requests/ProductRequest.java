@@ -13,13 +13,15 @@ import java.math.BigDecimal;
 @Builder
 public class ProductRequest {
 
+    private Long id;
+
     @NotBlank
     private String name;
 
     @NotNull
     private BigDecimal price;
 
-    @NotNull
+    @NotNull(message = "category is null")
     private Long categoryId;
 
     @NotNull
@@ -27,4 +29,5 @@ public class ProductRequest {
 
     private String description;
 
+    private String imageUrl;
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fa"
+      xmlns:th="http://www.thymeleaf.org"
+      dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>تایید ایمیل</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/auth.css}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <h1>فروشگاه</h1>
+
+</header>
+
+<main>
+
+    <div class="auth-card">
+
+        <h2>تایید ایمیل</h2>
+
+        <form th:action="@{/verify}"
+              method="post"
+              th:object="${verifyRequest}">
+
+            <input
+                    type="hidden"
+                    th:field="*{email}">
+
+            <input
+                    type="text"
+                    th:field="*{code}"
+                    placeholder="کد ۶ رقمی">
+
+            <button type="submit">
+
+                تایید
+
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

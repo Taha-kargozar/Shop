@@ -31,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
                 .price(request.getPrice())
                 .Description(request.getDescription())
                 .quantity(request.getQuantity())
+                .imageUrl(request.getImageUrl())
                 .build();
 
         Product saved = productRepo.save(product);
@@ -53,6 +54,7 @@ public class ProductServiceImpl implements ProductService {
         product.setPrice(request.getPrice());
         product.setQuantity(request.getQuantity());
         product.setCategory(category);
+        product.setImageUrl(request.getImageUrl());
 
         Product updatedProduct = productRepo.save(product);
 
@@ -109,6 +111,8 @@ public class ProductServiceImpl implements ProductService {
                 .price(product.getPrice())
                 .quantity(product.getQuantity())
                 .categoryName(product.getCategory().getName())
+                .imageUrl(product.getImageUrl())
+                .categoryId(product.getCategory().getId())
                 .build();
 
     }

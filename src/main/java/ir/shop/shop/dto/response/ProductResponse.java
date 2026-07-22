@@ -23,4 +23,7 @@ public class ProductResponse {
 
     private String categoryName;
 
+    private String imageUrl;
+
+    private Long categoryId;
 }

@@ -1,0 +1,193 @@
+* {
+
+    box-sizing: border-box;
+
+    font-family: "B Yekan", sans-serif;
+
+}
+
+
+body {
+
+    margin: 0;
+
+    background: #f5f7fb;
+
+    color: #333;
+
+}
+
+@font-face {
+
+    font-family: "BYekan";
+
+    src: url("static/fonts/BYekan.ttf") format("truetype");
+
+    font-weight: normal;
+
+    font-style: normal;
+
+}
+
+/* Navbar */
+
+.navbar {
+
+    background: #1e293b;
+
+    color: white;
+
+    padding: 20px 40px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.navbar h1 {
+
+    margin: 0;
+
+    font-size: 26px;
+
+}
+
+
+.navbar nav {
+
+    display: flex;
+
+    gap: 20px;
+
+}
+
+
+.navbar a {
+
+    color: white;
+
+    text-decoration: none;
+
+    transition: 0.3s;
+
+}
+
+
+.navbar a:hover {
+
+    color: #38bdf8;
+
+}
+
+
+
+/* Main */
+
+.container {
+
+    padding: 40px;
+
+}
+
+
+.container h2 {
+
+    margin-bottom: 30px;
+
+    font-size: 28px;
+
+}
+
+
+
+/* Cards */
+
+.cards {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 25px;
+
+}
+
+
+
+.card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+    transition: 0.3s;
+
+}
+
+
+
+.card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+
+
+.card h3 {
+
+    margin-top: 0;
+
+    font-size: 22px;
+
+    color: #1e293b;
+
+}
+
+
+
+.card p {
+
+    color: #64748b;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+/* Buttons */
+
+.card a {
+
+    display: inline-block;
+
+    background: #2563eb;
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 10px 25px;
+
+    border-radius: 8px;
+
+    transition: 0.3s;
+
+}
+
+
+
+.card a:hover {
+
+    background: #1d4ed8;
+
+}
