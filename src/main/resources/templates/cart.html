@@ -28,7 +28,6 @@
         <a th:href="@{/}">صفحه اصلی</a>
         <a th:href="@{/products}">محصولات</a>
         <a th:href="@{/cart}">سبد خرید</a>
-        <a th:href="@{/profile}">پروفایل</a>
 
     </nav>
 
@@ -53,56 +52,7 @@
         </tr>
 
         </thead>
-<!--
-        <tbody>
 
-        <tr th:each="item : ${cart.items}">
-
-            <td th:text="${item.productName}"></td>
-
-            <td th:text="${item.price}"></td>
-
-            <td th:text="${item.quantity}"></td>
-
-            <td th:text="${item.subtotal}"></td>
-
-        <tr th:each="item : ${cart.items}">
-
-            <td th:text="${item.productName}"></td>
-
-            <td th:text="${item.price}"></td>
-
-            <td th:text="${item.quantity}"></td>
-
-            <td th:text="${item.subtotal}"></td>
-
-            <td>
-
-                <form th:action="@{/cart/remove}" method="post">
-
-                    <input
-                            type="hidden"
-                            name="cartItemId"
-                            th:value="${item.id}">
-
-                    <button
-                            type="submit"
-                            class="delete-btn">
-
-                        حذف
-
-                    </button>
-
-                </form>
-
-            </td>
-
-        </tr>
-
-        </tr>
-
-        </tbody>
--->
         <tbody>
 
         <tr th:each="item : ${cart.items}">
